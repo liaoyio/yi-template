@@ -3,13 +3,11 @@ import { use } from 'echarts/core'
 import { isDark } from 'vue-dark-switch'
 import { PieChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
-
 import {
 	TitleComponent,
 	TooltipComponent,
 	LegendComponent,
 } from 'echarts/components'
-
 import VChart, { THEME_KEY } from 'vue-echarts'
 
 use([

@@ -49,6 +49,11 @@ import Icons from 'unplugin-icons/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconResolver from 'unplugin-icons/resolver'
 
+// Typed Routes and Layouts
+import { VueRouterAutoImports } from 'unplugin-vue-router'
+import Router from 'unplugin-vue-router/vite'
+import Layouts from 'vite-plugin-vue-meta-layouts'
+
 import type { Plugin } from 'vite'
 import type { ComponentResolver } from 'unplugin-vue-components/types'
 
@@ -67,6 +72,14 @@ export default function () {
 		Warmup({
 			clientFiles: ['./src/**/*'],
 		}),
+		// https://github.com/posva/unplugin-vue-router
+		Router({
+			routesFolder: 'src/pages',
+			extensions: ['.md', '.vue', '.tsx', '.jsx'],
+			dts: 'presets/types/type-router.d.ts',
+		}),
+		// 布局系统
+		Layouts(),
 		// 模块自动加载
 		Modules({
 			auto: true,
@@ -171,7 +184,9 @@ export default function () {
 				imports: [
 					...AutoGenerateImports({
 						include: [...vue3Presets],
+						exclude: ['vue-router'],
 					}),
+					VueRouterAutoImports,
 				],
 				resolvers: normalizeResolvers({
 					onlyExist: [
