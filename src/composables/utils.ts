@@ -137,3 +137,74 @@ export function get_chart_data(arr: any) {
 		y: c_array.map((i) => i.sum),
 	}
 }
+
+export function formatBytes(bytes: number): string {
+	const _f3 = (num: number) =>
+		num.toLocaleString('en-US', {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		})
+	const _m = (num: number) => Math.pow(1024, num)
+
+	if (!bytes || bytes == 0) return '0'
+	if (bytes < 1024) {
+		return `${bytes} B`
+	} else if (bytes < _m(2)) {
+		return `${_f3(bytes / 1024)} KB`
+	} else if (bytes < _m(3)) {
+		return `${_f3(bytes / _m(2))} MB`
+	} else if (bytes < _m(4)) {
+		return `${_f3(bytes / _m(3))} GB`
+	} else {
+		// (bytes < _m(5))
+		return `${_f3(bytes / _m(4))} TB`
+	}
+}
+
+/**
+ * 10000 => "10,000"
+ * @param {number} num
+ */
+export function toThousandFilter(date: number | string) {
+	const num = date ? Number(date) : 0
+	// 判断是否为整数
+	const isInteger = parseInt(num.toString()) == parseFloat(num.toString())
+	// .replace(/^-?\d+/g, (m) => m.replace(/(?=(?!\b)(\d{3})+$)/g, ","));
+	const filterStr = (str: string) =>
+		str.replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,')
+	return isInteger ? filterStr(num.toString()) : filterStr(num.toFixed(2))
+}
+
+/* 堆叠折线图 */
+export function get_stacked_chart_data(arr: any) {
+	let meno: any = {}
+	let series = []
+	const x = Array.from(new Set(arr.map((v: any) => v.dayStr)))
+	arr.forEach((item: any) => {
+		if (!meno[item.cacheServiceName]) {
+			meno[item.cacheServiceName] = []
+		}
+		meno[item.cacheServiceName].push({ dayStr: item.dayStr, fee: item.fee })
+	})
+	for (const [key, value] of Object.entries(meno)) {
+		// @ts-ignore
+		const fee_list = value.sort((a, b) => {
+			// @ts-ignore
+			return new Date(a.dayStr) - new Date(b.dayStr)
+		})
+		series.push({
+			name: key,
+			type: 'line',
+			stack: 'Total',
+			symbol: 'circle', //数值点设定为实心点
+			symbolSize: 6, // 折线的点的大小
+			animation: true,
+			data: fee_list.map((_v: any) => _v.fee.toFixed(2)),
+		})
+	}
+	return {
+		x,
+		legend: Object.keys(meno),
+		series,
+	}
+}

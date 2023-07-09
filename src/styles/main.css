@@ -1,6 +1,37 @@
 @import './md.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap&subset=latin');
 
+:root {
+		--blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #00b96b;
+    --info: #2196f3;
+    --warning: #ffc107;
+    --danger: #ff5252;
+    --light: #f8f9fa;
+    --dark: #343a40;
+}
+
+.Vue-Toastification__toast--default {
+  background-color: var(--primary);
+}
+
+.Vue-Toastification__toast--success {
+  background-color: var(--success);
+}
 
 html.dark {
 	background: #100c2a !important;
@@ -55,5 +86,117 @@ html.dark ::-webkit-scrollbar-thumb {
 
 body {
 	font-family: Inter, sans-serif;
+	/*
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	overflow: -moz-scrollbars-none;
+	overflow-y: scroll;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+ */
 }
 
+/*
+	::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+*/
+
+.icon_root {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	user-select: none;
+	width: 1em;
+	height: 1em;
+	display: inline-block;
+	fill: currentcolor;
+	flex-shrink: 0;
+	transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.copy_text {
+	white-space: nowrap;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	font-weight: 500;
+}
+
+.is-link {
+	text-decoration: none;
+	color: #1677ff;
+	background-color: transparent;
+	outline: none;
+	transition: color 0.3s;
+	cursor: pointer;
+}
+
+.is-link:hover {
+	color: #69b1ff;
+}
+
+.dialog-label {
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+	margin-bottom: 0.25rem;
+	font-weight: 550;
+	color: rgb(0 0 0 / 0.88);
+}
+
+.s_running {
+	position: relative;
+	z-index: 3;
+	width: 7px;
+	height: 7px;
+	color: #67c23a;
+	background-color: #67c23a;
+	border-radius: 50%;
+
+	&::before {
+		position: absolute;
+		top: -7px;
+		left: -7px;
+		width: 21px;
+		height: 21px;
+		background-color: #67c23a;
+		border-style: solid;
+		border-width: 0;
+		border-color: currentColor;
+		border-radius: 50%;
+		box-sizing: border-box;
+		content: "";
+		animation: scaleAnimate 1.5s ease-out infinite;
+	}
+}
+
+@keyframes scaleAnimate {
+	0% {
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	50% {
+		opacity: 0.4;
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(1);
+	}
+}
+
+
+.is_loading {
+  animation: rotating 2s linear infinite;
+}
+
+@keyframes rotating {
+  0% {
+      transform: rotate(0)
+  }
+
+  to {
+      transform: rotate(360deg)
+  }
+}

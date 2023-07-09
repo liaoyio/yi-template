@@ -28,6 +28,6 @@
 		"src/**/*.tsx",
 		"src/**/*.vue",
 		"./vite.config.ts"
-, "src/pages/cache/taskList.js", "src/pages/cache/clist.js"	],
+	],
 	"exclude": ["node_modules", "dist"]
 }

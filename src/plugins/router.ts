@@ -1,26 +1,71 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
+import Console from '~@/pages/index.vue'
 
 const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
-		component: () => import('~@/pages/index.vue'),
-		redirect: { name: 'Home' },
+		name: 'Console',
+		component: Console,
+	},
+	{
+		path: '/cache/:id',
+		name: 'Cache',
+		component: () => import('~@/pages/cache/index.vue'),
+		redirect: { name: 'Details' },
 		children: [
 			{
-				path: 'home',
-				name: 'Home',
-				component: () => import('~@/pages/home.vue'),
+				path: 'details',
+				name: 'Details',
+				component: () => import('~@/pages/cache/details.vue'),
 			},
 			{
-				path: 'about',
-				name: 'About',
-				component: () => import('~@/pages/about.md'),
+				path: 'connect',
+				name: 'Connect',
+				component: () => import('~@/pages/cache/connect.vue'),
 			},
 			{
-				path: 'echarts',
-				name: 'Echarts',
-				component: () => import('~@/pages/echarts.vue'),
+				path: 'metrics',
+				name: 'Metrics',
+				component: () => import('~@/pages/cache/metrics.vue'),
+			},
+			{
+				path: 'cli',
+				name: 'Cli',
+				component: () => import('~@/pages/cache/cli.vue'),
+			},
+			{
+				path: 'token',
+				name: 'Token',
+				component: () => import('~@/pages/cache/token.vue'),
+			},
+		],
+	},
+	{
+		path: '/account',
+		name: 'Account',
+		component: () => import('~@/pages/account/index.vue'),
+		redirect: { name: 'Billing' },
+		children: [
+			{
+				path: 'teams',
+				name: 'Teams',
+				component: () => import('~@/pages/account/teams.vue'),
+			},
+			{
+				path: 'billing',
+				name: 'Billing',
+				component: () => import('~@/pages/account/billing.vue'),
+			},
+			{
+				path: 'cost-explorer',
+				name: 'CostExplorer',
+				component: () => import('~@/pages/account/cost-explorer.vue'),
+			},
+			{
+				path: 'settings',
+				name: 'Settings',
+				component: () => import('~@/pages/account/settings.vue'),
 			},
 		],
 	},

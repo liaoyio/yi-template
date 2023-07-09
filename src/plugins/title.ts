@@ -4,7 +4,7 @@ useTitle(
 	() => {
 		const { path } = router.currentRoute.value
 		if (path === '/') {
-			return '| Home'
+			return '· home'
 		}
 		return path.replaceAll('/', ' · ')
 	},
