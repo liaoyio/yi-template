@@ -1,6 +1,6 @@
 <template>
 	<div class="grid grid-cols-3">
-		<a href="https://github.com/dishait/tov-template" target="_blank">
+		<a href="https://github.com/liaoyio/yi-template" target="_blank">
 			<img src="/yi.svg" class="logo" alt="Vite logo" />
 		</a>
 		<a href="https://vitejs.dev" target="_blank">
@@ -10,6 +10,5 @@
 			<img src="/vue.svg" class="logo vue" alt="Vue logo" />
 		</a>
 	</div>
-	<HelloWorld msg="Tov + Vite + Vue" />
+	<HelloWorld msg="Yi + Vite + Vue" />
 </template>
-

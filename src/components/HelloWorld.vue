@@ -20,7 +20,7 @@ const { t } = useI18n()
 			{{ t('check out') }}
 			<a href="https://github.com/dishait/tov-template" target="_blank">
 				tov-template </a
-			>, {{ t('the official Tov + Vue + Vite template') }}
+			>, {{ t('the official Yi + Vue + Vite template') }}
 		</p>
 		<p class="read-the-docs">
 			{{ t('The total number of views is') }}
