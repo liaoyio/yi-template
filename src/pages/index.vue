@@ -11,7 +11,7 @@
 				<img src="/vue.svg" class="logo vue" alt="Vue logo" />
 			</a>
 		</div>
-		<HelloWorld msg="Tov + Vite + Vue" />
+		<HelloWorld msg="Yi + Vite + Vue" />
 	</div>
 </template>
 
