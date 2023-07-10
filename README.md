@@ -1,7 +1,7 @@
 <div align="center">
     <img width="200px" height="200px" src="./public/yi.svg" />
     <h1>
-		<a href="https://github.com/liaoyio" target="_blank">Yi-template</a>
+		<a href="https://github.com/liaoyio/yi-template" target="_blank">Yi-template</a>
 	</h1>
     <p>vite + vue3 + ts 开箱即用现代开发模板</p>
 </div>
