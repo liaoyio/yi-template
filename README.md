@@ -49,6 +49,115 @@
 <br />
 <br />
 
+## ✨ 文件系统 (自动化路由)
+
+### [文件路由](https://github.com/posva/unplugin-vue-router)
+
+目录结构即路由。
+
+eg:
+
+- `src/pages/index.vue` => `/`
+- `src/pages/about.vue` => `/about`
+- `src/pages/users/index.vue` => `/users`
+- `src/pages/users/profile.vue` => `/users/profile`
+- `src/pages/users/[id].vue` => `/users/:id`
+- `src/pages/[user]/settings.vue` => `/:user/settings`
+- `src/pages/[...notFound].vue` => 404 路由
+
+具体可见 👉 [unplugin-vue-router](https://github.com/posva/unplugin-vue-router)
+
+<br />
+
+### [布局系统](https://github.com/dishait/vite-plugin-vue-meta-layouts)
+
+#### 默认布局
+
+`src/layouts/default.vue` 将作为默认布局。
+
+```html
+<!-- src/layouts/default.vue -->
+<template>
+	我是默认布局
+	<router-view />
+	<!-- 页面视图出口 -->
+</template>
+```
+
+此时 `src/pages/index.vue`
+
+```html
+<!-- src/pages/index.vue -->
+<template>
+	<div>我是首页</div>
+</template>
+```
+
+路由到 `/`时，页面将渲染
+
+```html
+我是默认布局 我是首页
+```
+
+此时 `src/pages/about.vue`
+
+```html
+<!-- src/pages/about.vue -->
+<template>
+	<div>我是关于页</div>
+</template>
+```
+
+路由到 `/about` 时，页面将渲染
+
+```html
+我是默认布局 我是关于页
+```
+
+<br />
+
+#### 非默认布局
+
+随便创建一个 `src/layouts/custom.vue`
+
+```html
+<!-- src/layouts/custom.vue -->
+<template>
+	我是非默认布局custom
+	<router-view />
+	<!-- 页面视图出口 -->
+</template>
+```
+
+此时 `src/pages/index.vue` 内
+
+```html
+<!-- src/pages/index.vue -->
+<template>
+	<div>我是首页</div>
+</template>
+
+<!-- 添加自定义块 👇 -->
+<route lang="json">
+{
+	"meta": {
+		"layout": "custom"
+	}
+}
+</route>
+```
+
+此时路由到 `/`, 页面将渲染
+
+```html
+我是非默认布局custom 我是首页
+```
+
+具体可见 👉
+[vite-plugin-vue-meta-layouts](https://github.com/dishait/vite-plugin-vue-meta-layouts)
+
+<br />
+
 ## 克隆模板 🦕
 
 1. Github
