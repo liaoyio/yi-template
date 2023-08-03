@@ -14,7 +14,8 @@
 		"useDefineForClassFields": true,
 		"baseUrl": ".",
 		"paths": {
-			"~@/*": ["src/*"],
+			"~/*": ["src/*"],
+			"@/*": ["src/*"],
 			"tsx/*": ["src/components/_tsx/*"],
 			"api/*": ["src/api/*"],
 			"#/*": ["src/types/*"]
@@ -28,6 +29,6 @@
 		"src/**/*.tsx",
 		"src/**/*.vue",
 		"./vite.config.ts"
-, "src/pages/cache/taskList.js", "src/pages/cache/clist.js"	],
+	],
 	"exclude": ["node_modules", "dist"]
 }

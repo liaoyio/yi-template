@@ -1,6 +1,8 @@
+import { utimes } from 'fs/promises'
 import { isPackageExists } from 'local-pkg'
 import Prism from 'markdown-it-prism'
 import { dirname, resolve } from 'path'
+import { debounce } from 'perfect-debounce'
 import { argv } from 'process'
 import UnoCss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -57,8 +59,16 @@ export default function () {
 	const safelist =
 		'prose px-2 sm:px-0 md:prose-lg lg:prose-lg dark:prose-invert text-left w-screen prose-slate prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600'
 	const plugins = [
+		// 兼容不支持 esmModule 的浏览器
 		Legacy({
-			targets: ['defaults', 'not IE 11'],
+			targets: [
+				'>= 0.25%',
+				'last 2 versions',
+				'not dead',
+				'not ie <= 11',
+				'Android >= 4.0',
+				'iOS >= 8',
+			],
 		}),
 		EnvTypes({
 			dts: 'presets/types/env.d.ts',
@@ -88,8 +98,6 @@ export default function () {
 			// imports 指定组件所在目录，默认为 src/components
 			// dirs: ['src/components/', 'src/pages/'],
 			include: [/\.vue$/, /\.vue\?vue/, /\.[tj]sx$/, /\.md$/],
-			// 排除 以 _ 开头并以 .tsx 结尾的文件
-			exclude: [/^_[^/]+\.[tj]sx$/],
 			extensions: ['md', 'vue', 'tsx', 'jsx'],
 			dts: resolve(__dirname, './types/components.d.ts'),
 			types: [
@@ -157,6 +165,7 @@ export default function () {
 		process.env.NODE_ENV !== 'debug' && Removelog(),
 		// 别名插件
 		Alias(),
+		// ForceRestart(),
 	]
 
 	if (env.VITE_APP_API_AUTO_IMPORT) {
@@ -283,11 +292,40 @@ function Alias(): Plugin {
 		config(config) {
 			config.resolve ??= {}
 			config.resolve.alias = [
-				{ find: /^~@/, replacement: src },
+				// { find: /^~@/, replacement: src },
+				{
+					find: /^~/,
+					replacement: src,
+				},
+				{
+					find: /^@\//,
+					replacement: src + '/',
+				},
 				{ find: /^tsx/, replacement: tsx_components },
 				{ find: /^api/, replacement: api },
 				{ find: /^#/, replacement: types },
 			]
+		},
+	}
+}
+
+/**
+ * 强制重启
+ */
+function ForceRestart(paths = ['package.json', 'pnpm-lock.yaml']): Plugin {
+	const restart = debounce(async function touch() {
+		const time = new Date()
+		await utimes('vite.config.ts', time, time)
+	}, 1000)
+	return {
+		name: 'vite-plugin-force-restart',
+		apply: 'serve',
+		configureServer({ watcher }) {
+			watcher.add(paths).on('all', async (_, path) => {
+				if (paths.includes(path)) {
+					await restart()
+				}
+			})
 		},
 	}
 }
