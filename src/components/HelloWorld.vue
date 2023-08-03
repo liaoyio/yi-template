@@ -18,8 +18,8 @@ const { t } = useI18n()
 
 		<p>
 			{{ t('check out') }}
-			<a href="https://github.com/dishait/tov-template" target="_blank">
-				tov-template </a
+			<a href="https://github.com/liaoyio/yi-template" target="_blank">
+				Yi-template </a
 			>, {{ t('the official Yi + Vue + Vite template') }}
 		</p>
 		<p class="read-the-docs">
