@@ -7,7 +7,7 @@ import {
 	presetWebFonts,
 } from 'unocss'
 
-import presetAutoprefixer from 'unocss-preset-autoprefixer'
+import presetAutoprefixer from './presets/autoprefixer'
 import transformerDirectives from '@unocss/transformer-directives'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 
@@ -52,7 +52,7 @@ export default defineConfig({
 			},
 		}),
 		presetTypography(),
-		presetAutoprefixer(['defaults', 'not IE 11']),
+		presetAutoprefixer(),
 	],
 	rules: [],
 })
